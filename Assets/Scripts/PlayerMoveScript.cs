@@ -13,7 +13,12 @@ public class PlayerMoveScript : MonoBehaviour
     private float moveSpeed = 900f;
     private float multiplier;
     private float multiplierV;
+    public Camera camera;
     
+    
+    //look
+    private Vector2 mouseInput;
+    private float mouseSensitivity = 2f;
     
     //player bools
     private float x, y;
@@ -57,6 +62,10 @@ public class PlayerMoveScript : MonoBehaviour
         jump = Input.GetKey(KeyCode.Space);
         crouching = Input.GetKey(KeyCode.LeftControl);
 
+        //look variables
+        mouseInput.x = Input.GetAxis("Mouse X");
+        mouseInput.y = Input.GetAxis("Mouse Y");
+        
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             StartCrouch();
@@ -87,7 +96,13 @@ public class PlayerMoveScript : MonoBehaviour
             Debug.Log("Jump");
             rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
         }
-            
+
+        float mouseX = mouseInput.x * mouseSensitivity;
+        float mouseY = mouseInput.y * mouseSensitivity;
+        
+        transform.Rotate(Vector3.left * mouseY);
+        camera.transform.Rotate(Vector3.up * mouseX);
+        
         rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
         rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
         
