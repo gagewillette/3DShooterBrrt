@@ -31,6 +31,7 @@ public class Gun : MonoBehaviour
 
     private void Start()
     {
+        //actions
         PlayerShoot.shootInput += Shoot;
         PlayerShoot.reloadInput += StartReload;
     }
@@ -65,7 +66,8 @@ public class Gun : MonoBehaviour
 
     private void OnGunShot()
     {
-        
+        //particles
+        //actual visualization
     }
     
 

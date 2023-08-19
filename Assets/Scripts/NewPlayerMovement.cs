@@ -115,7 +115,6 @@ public class NewPlayerMovement : MonoBehaviour
             if (isSprinting)
             {
                 rb.AddForce(moveDirection.normalized * sprintSpeed * 10f, ForceMode.Force);
-                
             }
             else
             {
