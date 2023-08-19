@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] private GunData data;
+    [SerializeField] public GunData data;
 
     private float timeSinceLastShot;
     public Transform muzzle;
@@ -37,19 +39,20 @@ public class Gun : MonoBehaviour
     }
 
     private bool CanShoot() => !data.reloading && timeSinceLastShot > 1 / (data.fireRate / 60);
-    
+
     public void Shoot()
     {
         if (data.currentAmmo > 0)
         {
             if (CanShoot())
             {
-                if (Physics.Raycast(muzzle.position, transform.forward, out RaycastHit hitInfo, data.maxDistance)) ;
+                if (Physics.Raycast(muzzle.position, transform.forward, out RaycastHit hitInfo, data.maxDistance))
                 {
+                    
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     damageable?.Damage(data.damage);
                 }
-
+                
                 data.currentAmmo--;
                 timeSinceLastShot = 0;
                 OnGunShot();
@@ -60,7 +63,7 @@ public class Gun : MonoBehaviour
     private void Update()
     {
         timeSinceLastShot += Time.deltaTime;
-        
+
         Debug.DrawRay(muzzle.position, muzzle.forward);
     }
 
@@ -69,6 +72,4 @@ public class Gun : MonoBehaviour
         //particles
         //actual visualization
     }
-    
-
 }

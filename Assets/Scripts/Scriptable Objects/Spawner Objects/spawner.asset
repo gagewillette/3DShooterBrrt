@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Spawner
   spawnRate: 15
-  maxSpawnable: 100
+  maxSpawnable: 10
   amountSpawned: 0
