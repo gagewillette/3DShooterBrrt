@@ -9,12 +9,16 @@ public class EnemySpanwer : MonoBehaviour
     [SerializeField] 
     public SpawnerData data;
 
+    private GameObject[] curEnemies;
+    
     //enemy prefab
     public GameObject enemyFab;
     
     //spawner data
     private float timeSinceLastSpawn;
 
+    private float frameCounter = 240;
+    
     private bool CanSpawn() => data.amountSpawned < data.maxSpawnable  && timeSinceLastSpawn > 1 / (data.spawnRate / 60);
 
     public void Start()
@@ -24,6 +28,15 @@ public class EnemySpanwer : MonoBehaviour
 
     public void Update()
     {
+        if (frameCounter == 240)
+        {
+            frameCounter = 0;
+            curEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+            data.amountSpawned = curEnemies.Length;
+        }
+
+        
+
         if (CanSpawn())
         {
             Instantiate(enemyFab, transform.position, transform.rotation);
@@ -31,8 +44,10 @@ public class EnemySpanwer : MonoBehaviour
             data.amountSpawned++;
             return;
         }
-
+    
         timeSinceLastSpawn += Time.deltaTime;
+        frameCounter++;
+
     }
 
 }

@@ -11,10 +11,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     // speed at which enemy moves towards player
     [SerializeField]
-    private float speed = 20f;
+    private float speed = 3f;
 
     private void Start()
     {
+        
         player = GameObject.Find("Player");
         if (player.IsUnityNull())
         {
