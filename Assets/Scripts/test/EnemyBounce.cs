@@ -16,7 +16,7 @@ public class EnemyBounce : MonoBehaviour
 
     public Rigidbody rb;
 
-    public float forceMultiplier = 10f;
+    public float forceMultiplier = 5f;
 
     public bool grounded;
     private void Start()
@@ -35,14 +35,14 @@ public class EnemyBounce : MonoBehaviour
         Vector3 randVec = RandVec3();
         Debug.Log(randVec);
         
-        rb.AddForce(randVec * Time.deltaTime, ForceMode.Impulse);
+        rb.AddForce(randVec * forceMultiplier * Time.deltaTime, ForceMode.Impulse);
         grounded = false;
     }
     
     //
     private Vector3 RandVec3()
     {
-     return new Vector3(Random.Range(0, 360), Random.Range(0, 360), 20);
+     return new Vector3(Random.Range(-360, 360), Random.Range(-360, 360), 20);
     }
     
     private void OnCollisionStay(Collision col)
